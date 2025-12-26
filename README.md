@@ -66,7 +66,30 @@ Visit `http://localhost:8501` in your browser.
 
 ---
 
-## 📂 Project Structure
+
+---
+
+## � Workflow Diagram
+
+```mermaid
+graph TD
+    A[Start] --> B(User Query)
+    B --> C{Sensitivity Check}
+    C -->|Safe Read-Only| D[Execute Tool]
+    C -->|Risky Write-Action| E{Hitl Interrupt}
+    E -->|Approve| D
+    E -->|Reject| F[Cancel Action]
+    D --> G[Agent Response]
+    F --> G
+    G --> H[End]
+    
+    style E fill:#f96,stroke:#333,stroke-width:2px
+    style D fill:#9f9,stroke:#333,stroke-width:2px
+    style F fill:#f99,stroke:#333,stroke-width:2px
+```
+
+## �📂 Project Structure
+
 
 - `app.py`: **Main Entry Point**. The Streamlit dashboard that routes between the 3 demos.
 - `chatbot_without_hitl.py`: Backend logic for the Autonomous Agent (Demo 2).
