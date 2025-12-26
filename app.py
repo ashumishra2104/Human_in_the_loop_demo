@@ -26,6 +26,13 @@ st.set_page_config(
     page_icon="🤖"
 )
 
+# --- Sidebar Info ---
+with st.sidebar:
+    st.markdown("### 👨‍💻 Created by **Ashu Mishra**")
+    st.markdown("[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://in.linkedin.com/in/ashumish)")
+    st.markdown("[![GitHub](https://img.shields.io/badge/GitHub-Repo-black?style=flat&logo=github)](https://github.com/ashumishra2104/Human_in_the_loop_demo)")
+    st.info("Explore how AI Agents handle interactions with and without human oversight.")
+
 # Custom CSS for the Dashboard
 st.markdown("""
 <style>
