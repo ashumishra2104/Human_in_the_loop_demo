@@ -2,6 +2,10 @@
 
 A comprehensive demonstration of **Human-in-the-Loop** workflows in AI Agents using `LangGraph` and `Streamlit`. This repository showcases how to build agents that can autonomously execute tasks while intelligently pausing for human approval when dealing with sensitive actions (like financial transactions).
 
+## 🌟 Live Demo
+👉 **[Try the App Here](https://humanintheloopdemo-4urpxasnvjpgghmumpspyy.streamlit.app/)**
+
+
 ## 🚀 Overview
 
 This dashboard includes three distinct demos:
