@@ -12,11 +12,36 @@ A visual, step-by-step walkthrough of the HITL logic.
 - **Goal**: To educate users on the "Interrupt" mechanism in agentic workflows.
 - **Visualization**: Uses a dynamic flowchart to highlight the active state (Wait vs. Success vs. Deny).
 
+```mermaid
+graph TD
+    A[User Query] --> B{Permission Request}
+    B -->|User Approves| C[Step 3: Success]
+    B -->|User Rejects| D[Step 3: Denied]
+    C --> E[Step 4: Model Answer]
+    D --> F[End Loop]
+    E --> F
+    
+    style B fill:#ffeeba,stroke:#d6d8db
+    style C fill:#d4edda,stroke:#c3e6cb
+    style D fill:#f8d7da,stroke:#f5c6cb
+```
+
 ### 2. **Demo 2: Fully Autonomous Agent**
 A "Risky" Stock Broker Agent that has no safety checks.
 - **Tools**: `get_stock_price`, `purchase_stock`.
 - **Behavior**: If you ask it to "Buy 100 shares of AAPL", it will execute the purchase **immediately** without confirmation.
 - **Tech**: Standard `LangGraph` execution.
+
+```mermaid
+graph LR
+    A[User Input] --> B[Agent Agent]
+    B --> C{Tool Call?}
+    C -- Yes --> D[Execute Tool]
+    D --> B
+    C -- No --> E[Final Response]
+    
+    style D fill:#ffcccb,stroke:#f00
+```
 
 ### 3. **Demo 3: Human-in-the-Loop Agent**
 A "Safe" Stock Broker Agent.
@@ -30,6 +55,26 @@ A "Safe" Stock Broker Agent.
     5. **Resume**:
         - **Approve**: Tool executes logic → Agent confirms.
         - **Reject**: Tool returns "Cancelled" → Agent apologizes.
+
+```mermaid
+graph TD
+    A[User Input] --> B[Agent]
+    B --> C{Tool Call?}
+    C -- Yes --> D{Is Sensitive?}
+    D -- No --> E[Execute Tool]
+    D -- Yes --> F((PAUSE: Interrupt))
+    
+    F --> G{User Decision}
+    G -- Approve --> E
+    G -- Reject --> H[Cancel Action]
+    
+    E --> B
+    H --> B
+    C -- No --> I[Final Response]
+
+    style F fill:#f96,stroke:#333,stroke-width:4px
+    style G fill:#fff3cd,stroke:#856404
+```
 
 ---
 
@@ -66,29 +111,7 @@ Visit `http://localhost:8501` in your browser.
 
 ---
 
-
----
-
-## � Workflow Diagram
-
-```mermaid
-graph TD
-    A[Start] --> B(User Query)
-    B --> C{Sensitivity Check}
-    C -->|Safe Read-Only| D[Execute Tool]
-    C -->|Risky Write-Action| E{Hitl Interrupt}
-    E -->|Approve| D
-    E -->|Reject| F[Cancel Action]
-    D --> G[Agent Response]
-    F --> G
-    G --> H[End]
-    
-    style E fill:#f96,stroke:#333,stroke-width:2px
-    style D fill:#9f9,stroke:#333,stroke-width:2px
-    style F fill:#f99,stroke:#333,stroke-width:2px
-```
-
-## �📂 Project Structure
+## 📂 Project Structure
 
 
 - `app.py`: **Main Entry Point**. The Streamlit dashboard that routes between the 3 demos.
